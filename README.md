@@ -19,7 +19,7 @@ We will use the widely trusted [Medical Cost Personal Datasets](https://www.kagg
 2. Build the Exploratory Data Analysis (EDA) script to visualize distributions.
 3. Write a preprocessing script that encodes categorical variables (sex, smoker, region) and scales numerical ones (BMI, age).
 4. Train a simple Linear Regression model to establish a baseline error metric.
-5. Maintain the repository, add branch rules.
+5. Maintain the repository, add branch rules, GH actions.
 
 ### Mikita
 1. Build non-linear models on the preprocessed data.
