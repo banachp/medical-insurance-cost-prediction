@@ -1,0 +1,23 @@
+name: PR Metadata Checks
+
+on:
+  pull_request:
+    types: [opened, edited, synchronize]
+
+jobs:
+  check-naming-and-body:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check PR Title Convention
+        run: |
+          TITLE="${{ github.event.pull_request.title }}"
+          if [[ ! "$TITLE" =~ ^(Paula|Mikita|Igor): ]]; then
+            echo "::error title=Invalid PR Title::The PR title must start with 'Paula:', 'Mikita:', or 'Igor:'. Please add your name prefix to the PR Title."
+            exit 1
+          fi
+
+      - name: Check PR Body is not empty
+        if: ${{ github.event.pull_request.body == '' }}
+        run: |
+          echo "::error title=Empty PR Description::The PR body is completely empty. Please edit the PR description and fill out the provided template."
+          exit 1
