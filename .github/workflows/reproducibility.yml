@@ -1,0 +1,28 @@
+name: Reproducibility Check
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  test-environment:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Check for requirements.txt
+        run: |
+          if [ ! -f requirements.txt ]; then
+            echo "::error title=Missing requirements.txt::The requirements.txt file is missing from the repository root. Please run 'pip freeze > requirements.txt' locally and commit the file to the root directory."
+            exit 1
+          fi
+
+      - name: Test Dependency Installation
+        run: |
+          pip install -r requirements.txt || { echo "::error title=Dependency Installation Failed::'pip' could not install the packages. You likely have conflicting versions or a typo in requirements.txt. Please check the Action logs and fix the version conflicts in requirements.txt."; exit 1; }
