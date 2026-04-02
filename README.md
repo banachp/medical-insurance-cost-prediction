@@ -7,6 +7,19 @@ Build a reproducible Machine Learning pipeline that predicts the medical insuran
 ## Dataset 
 We will use the widely trusted [Medical Cost Personal Datasets](https://www.kaggle.com/datasets/mirichoi0218/insurance) from Kaggle.
 
+## IMPORTANT: Branch and PR Rules
+When creating a new branch, please start with your name and specify which task you will be doing. Example: `paula/first-readme-update`
+The repository is being protected with a set of rules to ensure smooth collaboration:
+1. You cannot push directly onto main. You need to make a PR with your changes.
+2. Branches need to be up-to-date with main before merging.
+3. Each PR needs to be reviewed by another Team member.
+4. The PR description will be auto-populated by a template defined in `.github/pull_request_template.md`. Please fill it out before requesting reviews.
+5. The PR title needs to start with the author name. Example: *"Paula: Add PR healthchecks"*
+6. Each PR needs to pass the dedicated healthchecks:
+   - `.github/workflows/pr-metadata.yml`: A workflow that enforces the PR naming convention (Paula:, Mikita:, or Igor:) and ensures this PR body is not empty.
+   - `.github/workflows/code-quality.yml`: A workflow that automatically checks our Python formatting (black, isort), lints for errors (flake8), and rejects the PR if unstripped Jupyter Notebook outputs are detected (nbstripout).
+   - `.github/workflows/reproducibility.yml`: A workflow that verifies our requirements.txt is up-to-date by attempting a fresh install on an Ubuntu runner.
+
 ## Authors
 - Paula Banach, *440186*
 - Igor Kołodziej, *440239*
