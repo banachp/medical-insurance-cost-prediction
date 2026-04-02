@@ -1,0 +1,37 @@
+name: Code Quality & Notebooks
+
+on:
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  lint-format-notebooks:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.10'
+
+      - name: Install Linting Tools
+        run: pip install black isort flake8 nbstripout
+
+      - name: Check Black (Formatting)
+        run: |
+          black --check . || { echo "::error title=Black Formatting Failed::Code spacing/line-lengths do not meet Black's standards. Please run 'black .' in your local terminal and commit the formatting changes."; exit 1; }
+
+      - name: Check isort (Import Sorting)
+        run: |
+          isort --check-only . || { echo "::error title=Import Sorting Failed::Python imports are not sorted alphabetically or grouped correctly. Please run 'isort .' in your local terminal and commit the changes."; exit 1; }
+
+      - name: Check Flake8 (Linting)
+        run: |
+          flake8 . || { echo "::error title=Flake8 Linting Failed::Syntax errors, undefined names, or unused imports were found. Please open the 'Details' of this GitHub Action to see which lines failed, fix them in your code, and commit."; exit 1; }
+
+      - name: Check Notebook Outputs (nbstripout)
+        run: |
+          # Finds all .ipynb files and checks if they are stripped. Succeeds if no notebooks exist.
+          find . -name "*.ipynb" -type f -exec nbstripout --is-stripped {} + || { echo "::error title=Notebook Outputs Found::A Jupyter Notebook was committed with its cell outputs still attached. Please clear all outputs, save, and commit the clean notebook."; exit 1; }          
