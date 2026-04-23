@@ -7,6 +7,26 @@ Build a reproducible Machine Learning pipeline that predicts the medical insuran
 ## Dataset 
 We will use the widely trusted [Medical Cost Personal Datasets](https://www.kaggle.com/datasets/mirichoi0218/insurance) from Kaggle.
 
+### Downloading the data
+
+1. Get your Kaggle API credentials: go to [Kaggle](https://www.kaggle.com) → **Settings → API → Generate New Token**. Copy the `username` and `key` values shown.
+2. Open create a `kaggle.json` file in the `.kaggle` folder at the root of this repo and fill in your credentials:
+   ```json
+   {"username": "your_kaggle_username", "key": "your_kaggle_api_key"}
+   ```
+3. Create and activate a virtual environment, then install dependencies:
+   ```bash
+   python -m venv .venv
+   .venv\Scripts\activate        # Windows
+   # source .venv/bin/activate   # macOS / Linux
+   pip install -r requirements.txt
+   ```
+4. Run the ingestion script:
+   ```bash
+   python scripts/ingest_data.py
+   ```
+   The raw dataset will be saved to `data/insurance.csv`.
+
 ## IMPORTANT: Branch and PR Rules
 When creating a new branch, please start with your name and specify which task you will be doing. Example: `paula/first-readme-update`
 The repository is being protected with a set of rules to ensure smooth collaboration:
