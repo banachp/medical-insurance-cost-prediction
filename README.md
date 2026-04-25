@@ -27,6 +27,20 @@ We will use the widely trusted [Medical Cost Personal Datasets](https://www.kagg
    ```
    The raw dataset will be saved to `data/insurance.csv`.
 
+### Exploratory Data Analysis
+
+The notebook [`notebooks/eda.ipynb`](notebooks/eda.ipynb) provides a full walkthrough of the dataset before any modelling. It covers:
+
+- **Data quality**: dtype inspection, missing values, and duplicate checks
+- **Target variable**: distribution and log-transform of `charges`
+- **Numeric features**: histograms and boxplots for `age`, `bmi`, and `children`
+- **Categorical features**: count plots for `sex`, `smoker`, `region`, and `children`
+- **Charges by group**: boxplots and mean charges broken down by categorical variables
+- **Charges vs numeric features**: scatter plots coloured by smoking status
+- **Correlation analysis**: heatmap on label-encoded features
+
+All figures are saved to `reports/figures/`. Running the final cell exports the notebook as a self-contained HTML report to `reports/eda_report.html`.
+
 ## IMPORTANT: Branch and PR Rules
 When creating a new branch, please start with your name and specify which task you will be doing. Example: `paula/first-readme-update`
 The repository is being protected with a set of rules to ensure smooth collaboration:
