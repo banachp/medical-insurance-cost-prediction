@@ -1,2 +1,8 @@
 kaggle
+numpy
+pandas
+matplotlib
+seaborn
+jupyter
+nbconvert
 
