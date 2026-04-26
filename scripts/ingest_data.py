@@ -28,11 +28,10 @@ RAW_FILE = "insurance.csv"
 
 def download_dataset(dest_dir: Path) -> None:
     try:
-        import kaggle 
+        import kaggle
     except ImportError:
         raise SystemExit(
-            "The 'kaggle' package is not installed. "
-            "Run:  pip install kaggle"
+            "The 'kaggle' package is not installed. " "Run:  pip install kaggle"
         )
 
     dest_dir.mkdir(parents=True, exist_ok=True)
@@ -68,9 +67,7 @@ def download_dataset(dest_dir: Path) -> None:
 def verify(dest_dir: Path) -> None:
     csv_path = dest_dir / RAW_FILE
     if not csv_path.exists():
-        raise FileNotFoundError(
-            f"Expected file '{RAW_FILE}' not found in {dest_dir}."
-        )
+        raise FileNotFoundError(f"Expected file '{RAW_FILE}' not found in {dest_dir}.")
 
     import csv
 
