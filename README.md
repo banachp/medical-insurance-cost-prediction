@@ -7,6 +7,40 @@ Build a reproducible Machine Learning pipeline that predicts the medical insuran
 ## Dataset 
 We will use the widely trusted [Medical Cost Personal Datasets](https://www.kaggle.com/datasets/mirichoi0218/insurance) from Kaggle.
 
+### Downloading the data
+
+1. Get your Kaggle API credentials: go to [Kaggle](https://www.kaggle.com) → **Settings → API → Generate New Token**. Copy the `username` and `key` values shown.
+2. Open create a `kaggle.json` file in the `.kaggle` folder at the root of this repo and fill in your credentials:
+   ```json
+   {"username": "your_kaggle_username", "key": "your_kaggle_api_key"}
+   ```
+3. Create and activate a virtual environment, then install dependencies:
+   ```bash
+   python -m venv .venv
+   .venv\Scripts\activate        # Windows
+   # source .venv/bin/activate   # macOS / Linux
+   pip install -r requirements.txt
+   ```
+4. Run the ingestion script:
+   ```bash
+   python scripts/ingest_data.py
+   ```
+   The raw dataset will be saved to `data/insurance.csv`.
+
+### Exploratory Data Analysis
+
+The notebook [`notebooks/eda.ipynb`](notebooks/eda.ipynb) provides a full walkthrough of the dataset before any modelling. It covers:
+
+- **Data quality**: dtype inspection, missing values, and duplicate checks
+- **Target variable**: distribution and log-transform of `charges`
+- **Numeric features**: histograms and boxplots for `age`, `bmi`, and `children`
+- **Categorical features**: count plots for `sex`, `smoker`, `region`, and `children`
+- **Charges by group**: boxplots and mean charges broken down by categorical variables
+- **Charges vs numeric features**: scatter plots coloured by smoking status
+- **Correlation analysis**: heatmap on label-encoded features
+
+All figures are saved to `reports/figures/`. Running the final cell exports the notebook as a self-contained HTML report to `reports/eda_report.html`.
+
 ## IMPORTANT: Branch and PR Rules
 When creating a new branch, please start with your name and specify which task you will be doing. Example: `paula/first-readme-update`
 The repository is being protected with a set of rules to ensure smooth collaboration:

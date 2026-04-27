@@ -34,4 +34,4 @@ jobs:
       - name: Check Notebook Outputs (nbstripout)
         run: |
           # Finds all .ipynb files and checks if they are stripped. Succeeds if no notebooks exist.
-          find . -name "*.ipynb" -type f -exec nbstripout --is-stripped {} + || { echo "::error title=Notebook Outputs Found::A Jupyter Notebook was committed with its cell outputs still attached. Please clear all outputs, save, and commit the clean notebook."; exit 1; }          
+          find . -name "*.ipynb" -type f -exec nbstripout --verify {} + || { echo "::error title=Notebook Outputs Found::A Jupyter Notebook was committed with its cell outputs still attached. Please clear all outputs, save, and commit the clean notebook."; exit 1; }
