@@ -73,11 +73,13 @@ The repository is being protected with a set of rules to ensure smooth collabora
 2. Write the script for hyperparameter tuning.
 3. Ensure strict reproducibility by setting global random seeds for all model training and train/test splits.
 4. Save the final trained model as an artifact.
+5. Compare different models to see which one performs best.
 
 ### Igor
 1. Manage the Python environment. Create and test the requirements.txt or environment.yml file to ensure everyone can install the exact same library versions.
-2. Write an evaluation script (src/evaluate.py) that calculates final metrics on the test set.
+2. Write an evaluation script that calculates final metrics on the test set.
 3. Implement model explainability to automatically generate charts showing why the model made its predictions.
 4. Write the master README.md with step-by-step instructions on how to clone the repo, install dependencies, and run the pipeline from start to finish.
+5. Prepare the report, comparing the previous results from Kaggle users to our final results.
 
 
