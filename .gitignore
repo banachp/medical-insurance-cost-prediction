@@ -1,9 +1,6 @@
 # Kaggle API credentials 
 .kaggle/kaggle.json
 
-# Data files
-data/
-
 # Python
 __pycache__/
 *.py[cod]
