@@ -43,6 +43,7 @@ RANDOM_STATE = 42
 # Steps
 # ---------------------------------------------------------------------------
 
+
 def load_data(path: Path) -> pd.DataFrame:
     if not path.exists():
         raise FileNotFoundError(
@@ -100,6 +101,7 @@ def save_model(model: LinearRegression) -> None:
     MODELS_DIR.mkdir(parents=True, exist_ok=True)
     joblib.dump(model, MODEL_FILE)
     print(f"\nModel saved to: {MODEL_FILE}")
+
 
 def main() -> None:
     df = load_data(PROCESSED_FILE)
