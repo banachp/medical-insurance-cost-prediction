@@ -8,33 +8,27 @@ from __future__ import annotations
 
 from typing import Any
 
-from sklearn.ensemble import (
-    ExtraTreesRegressor,
-    GradientBoostingRegressor,
-    HistGradientBoostingRegressor,
-    RandomForestRegressor,
-)
-
 from reproducibility import RANDOM_SEED
+from sklearn import ensemble
 
 
 def get_default_models(seed: int = RANDOM_SEED) -> dict[str, Any]:
     """Return fresh non-linear model instances with fixed random states."""
     return {
-        "RandomForestRegressor": RandomForestRegressor(
+        "RandomForestRegressor": ensemble.RandomForestRegressor(
             n_estimators=300,
             random_state=seed,
             n_jobs=-1,
         ),
-        "ExtraTreesRegressor": ExtraTreesRegressor(
+        "ExtraTreesRegressor": ensemble.ExtraTreesRegressor(
             n_estimators=300,
             random_state=seed,
             n_jobs=-1,
         ),
-        "GradientBoostingRegressor": GradientBoostingRegressor(
+        "GradientBoostingRegressor": ensemble.GradientBoostingRegressor(
             random_state=seed,
         ),
-        "HistGradientBoostingRegressor": HistGradientBoostingRegressor(
+        "HistGradientBoostingRegressor": ensemble.HistGradientBoostingRegressor(
             random_state=seed,
             max_iter=300,
         ),
