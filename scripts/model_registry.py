@@ -51,9 +51,7 @@ def build_model(
 
     if model_name not in models:
         available = ", ".join(models)
-        raise ValueError(
-            f"Unknown model '{model_name}'. Available models: {available}"
-        )
+        raise ValueError(f"Unknown model '{model_name}'. Available models: {available}")
 
     model = models[model_name]
 
