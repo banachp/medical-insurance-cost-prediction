@@ -6,7 +6,8 @@ deterministic train/test split, and saves the comparison table.
 """
 
 # AI assistance disclosure:
-# Initial structure and implementation were drafted with ChatGPT and reviewed,
+# Initial structure and implementation were drafted with ChatGPT
+# using GPT-5.5 Thinking. The code was reviewed,
 # edited, and tested by Mikita Silivestrau.
 
 from __future__ import annotations
