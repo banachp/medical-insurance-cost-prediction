@@ -1,0 +1,65 @@
+{
+  "author": "Mikita Silivestrau",
+  "random_seed": 42,
+  "test_size": 0.2,
+  "cv_folds": 5,
+  "n_iter": 10,
+  "scoring": "negative root mean squared error",
+  "best_model": {
+    "name": "GradientBoostingRegressor",
+    "best_cv_rmse": 4528.370755235139,
+    "best_params": {
+      "subsample": 0.8,
+      "n_estimators": 300,
+      "min_samples_leaf": 1,
+      "max_depth": 2,
+      "learning_rate": 0.03
+    }
+  },
+  "all_model_summaries": [
+    {
+      "name": "GradientBoostingRegressor",
+      "best_cv_rmse": 4528.370755235139,
+      "best_params": {
+        "subsample": 0.8,
+        "n_estimators": 300,
+        "min_samples_leaf": 1,
+        "max_depth": 2,
+        "learning_rate": 0.03
+      }
+    },
+    {
+      "name": "RandomForestRegressor",
+      "best_cv_rmse": 4645.833472909806,
+      "best_params": {
+        "n_estimators": 200,
+        "min_samples_split": 5,
+        "min_samples_leaf": 4,
+        "max_features": 1.0,
+        "max_depth": 8
+      }
+    },
+    {
+      "name": "ExtraTreesRegressor",
+      "best_cv_rmse": 4599.914986846682,
+      "best_params": {
+        "n_estimators": 200,
+        "min_samples_split": 5,
+        "min_samples_leaf": 4,
+        "max_features": 1.0,
+        "max_depth": 8
+      }
+    },
+    {
+      "name": "HistGradientBoostingRegressor",
+      "best_cv_rmse": 4622.910913623134,
+      "best_params": {
+        "min_samples_leaf": 30,
+        "max_leaf_nodes": 31,
+        "max_iter": 100,
+        "learning_rate": 0.05,
+        "l2_regularization": 0.01
+      }
+    }
+  ]
+}

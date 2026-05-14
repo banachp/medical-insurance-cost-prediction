@@ -1,0 +1,37 @@
+{
+  "author": "Mikita Silivestrau",
+  "random_seed": 42,
+  "test_size": 0.2,
+  "target_column": "charges",
+  "model_name": "GradientBoostingRegressor",
+  "model_params": {
+    "subsample": 0.8,
+    "n_estimators": 300,
+    "min_samples_leaf": 1,
+    "max_depth": 2,
+    "learning_rate": 0.03
+  },
+  "metrics_on_test_split": {
+    "mae": 2439.0218475615466,
+    "rmse": 4321.656036784188,
+    "r2": 0.8796981416800634
+  },
+  "n_rows_total": 1338,
+  "n_rows_train": 1070,
+  "n_rows_test": 268,
+  "feature_columns": [
+    "age",
+    "sex",
+    "bmi",
+    "children",
+    "smoker",
+    "region_northeast",
+    "region_northwest",
+    "region_southeast",
+    "region_southwest"
+  ],
+  "data_path": "data/insurance_preprocessed.csv",
+  "data_sha256": "81277df3faab671048c119d5e4ff316ac93704d5e9540eb801c7a771d02335f4",
+  "best_params_path": "reports/best_model_params.json",
+  "final_model_path": "models/final_model.joblib"
+}
