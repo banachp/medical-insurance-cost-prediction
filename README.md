@@ -1,85 +1,155 @@
 # Medical Insurance Cost Prediction
-This repository is a final assignment for the Reproducible Research course at the University of Warsaw.
+
+This repository is a final assignment for the Reproducible Research course at
+the University of Warsaw. It builds a reproducible machine learning pipeline for
+predicting annual medical insurance charges from demographic and lifestyle
+features.
 
 ## Project Goal
-Build a reproducible Machine Learning pipeline that predicts the medical insurance costs for an individual based on their demographic and lifestyle factors.
 
-## Dataset 
-We will use the widely trusted [Medical Cost Personal Datasets](https://www.kaggle.com/datasets/mirichoi0218/insurance) from Kaggle.
+Predict medical insurance costs using the
+[Medical Cost Personal Datasets](https://www.kaggle.com/datasets/mirichoi0218/insurance)
+dataset from Kaggle, then evaluate and explain the final model in a way that can
+be rerun by every contributor.
 
-### Downloading the data
+## Environment
 
-1. Get your Kaggle API credentials: go to [Kaggle](https://www.kaggle.com) → **Settings → API → Generate New Token**. Copy the `username` and `key` values shown.
-2. Open create a `kaggle.json` file in the `.kaggle` folder at the root of this repo and fill in your credentials:
+The project uses Poetry as the only supported environment manager. Install
+Poetry, then create the locked environment:
+
+```bash
+poetry install
+```
+
+Poetry configuration is stored in `pyproject.toml`, and exact resolved package
+versions are stored in `poetry.lock`.
+
+## Downloading the Data
+
+The repository already contains the dataset used for the submitted results. To
+download it again from Kaggle:
+
+1. In Kaggle, go to **Settings -> API -> Generate New Token**.
+2. Create `.kaggle/kaggle.json` at the root of this repo:
+
    ```json
    {"username": "your_kaggle_username", "key": "your_kaggle_api_key"}
    ```
-3. Create and activate a virtual environment, then install dependencies:
+
+3. Run:
+
    ```bash
-   python -m venv .venv
-   .venv\Scripts\activate        # Windows
-   # source .venv/bin/activate   # macOS / Linux
-   pip install -r requirements.txt
+   poetry run python scripts/ingest_data.py
    ```
-4. Run the ingestion script:
-   ```bash
-   python scripts/ingest_data.py
-   ```
-   The raw dataset will be saved to `data/insurance.csv`.
 
-### Exploratory Data Analysis
+The raw dataset will be saved to `data/insurance.csv`.
 
-The notebook [`notebooks/eda.ipynb`](notebooks/eda.ipynb) provides a full walkthrough of the dataset before any modelling. It covers:
+## Reproducible Pipeline
 
-- **Data quality**: dtype inspection, missing values, and duplicate checks
-- **Target variable**: distribution and log-transform of `charges`
-- **Numeric features**: histograms and boxplots for `age`, `bmi`, and `children`
-- **Categorical features**: count plots for `sex`, `smoker`, `region`, and `children`
-- **Charges by group**: boxplots and mean charges broken down by categorical variables
-- **Charges vs numeric features**: scatter plots coloured by smoking status
-- **Correlation analysis**: heatmap on label-encoded features
+Run the pipeline from the repository root:
 
-All figures are saved to `reports/figures/`. Running the final cell exports the notebook as a self-contained HTML report to `reports/eda_report.html`.
+```bash
+poetry run python scripts/preprocess_data.py
+poetry run python scripts/train_model.py
+poetry run python scripts/train_nonlinear_models.py
+poetry run python scripts/tune_models.py
+poetry run python scripts/save_final_model.py
+poetry run python scripts/evaluate_model.py
+poetry run python scripts/explain_model.py
+```
 
-## IMPORTANT: Branch and PR Rules
-When creating a new branch, please start with your name and specify which task you will be doing. Example: `paula/first-readme-update`
-The repository is being protected with a set of rules to ensure smooth collaboration:
-1. You cannot push directly onto main. You need to make a PR with your changes.
-2. Branches need to be up-to-date with main before merging.
-3. Each PR needs to be reviewed by another Team member.
-4. The PR description will be auto-populated by a template defined in `.github/pull_request_template.md`. Please fill it out before requesting reviews.
-5. The PR title needs to start with the author name. Example: *"Paula: Add PR healthchecks"*
-6. Each PR needs to pass the dedicated healthchecks:
-   - `.github/workflows/pr-metadata.yml`: A workflow that enforces the PR naming convention (Paula:, Mikita:, or Igor:) and ensures this PR body is not empty.
-   - `.github/workflows/code-quality.yml`: A workflow that automatically checks our Python formatting (black, isort), lints for errors (flake8), and rejects the PR if unstripped Jupyter Notebook outputs are detected (nbstripout).
-   - `.github/workflows/reproducibility.yml`: A workflow that verifies our requirements.txt is up-to-date by attempting a fresh install on an Ubuntu runner.
+The final model is saved at `models/final_model.joblib`. Final evaluation and
+explainability artifacts are saved under `reports/`.
+
+## Final Results
+
+The selected final model is a tuned `GradientBoostingRegressor`, evaluated on a
+deterministic 80/20 split with random seed 42.
+
+| Metric | Value |
+| --- | ---: |
+| MAE | 2439.02 |
+| RMSE | 4321.66 |
+| R2 | 0.8797 |
+
+See `reports/final_report.md` for the comparison with related Kaggle-style work
+and published results.
+
+## Exploratory Data Analysis
+
+The notebook `notebooks/eda.ipynb` provides a walkthrough of the dataset before
+modelling. It covers:
+
+- data quality checks
+- target distribution
+- numeric and categorical feature distributions
+- charges by demographic and lifestyle groups
+- correlation analysis
+
+Figures are saved to `reports/figures/`, and the exported HTML report is saved
+to `reports/eda_report.html`.
+
+## Validation
+
+Before opening a pull request, run:
+
+```bash
+poetry check --lock --strict
+poetry install
+poetry run black --check .
+poetry run isort --check-only .
+poetry run flake8 .
+poetry run nbstripout --verify notebooks/eda.ipynb
+poetry run pytest
+poetry run python scripts/evaluate_model.py
+poetry run python scripts/explain_model.py
+```
+
+## Branch and PR Rules
+
+When creating a new branch, start with your name and specify the task. Example:
+`igor/reproducible-evaluation-reporting`.
+
+Repository collaboration rules:
+
+1. Do not push directly to `main`; open a pull request.
+2. Branches must be up to date with `main` before merging.
+3. Each PR must be reviewed by another team member.
+4. Fill out the PR template before requesting review.
+5. PR titles must start with the author name, for example:
+   `Igor: Add reproducible evaluation and reporting`.
+6. Each PR must pass metadata, code-quality, notebook, and reproducibility
+   checks.
 
 ## Authors
-- Paula Banach, *440186*
-- Igor Kołodziej, *440239*
-- Mikita Silivestrau, *392905*
 
-## Work-Split
+- Paula Banach, 440186
+- Igor Kolodziej, 440239
+- Mikita Silivestrau, 392905
+
+## Work Split
 
 ### Paula
+
 1. Write the data ingestion script.
-2. Build the Exploratory Data Analysis (EDA) script to visualize distributions.
-3. Write a preprocessing script that encodes categorical variables (sex, smoker, region) and scales numerical ones (BMI, age).
-4. Train a simple Linear Regression model to establish a baseline error metric.
-5. Maintain the repository, add branch rules, GH actions.
+2. Build the Exploratory Data Analysis notebook.
+3. Write preprocessing that encodes categorical variables and prepares model
+   features.
+4. Train a linear regression baseline.
+5. Maintain repository rules and GitHub Actions.
 
 ### Mikita
+
 1. Build non-linear models on the preprocessed data.
-2. Write the script for hyperparameter tuning.
-3. Ensure strict reproducibility by setting global random seeds for all model training and train/test splits.
+2. Write reproducible hyperparameter tuning.
+3. Centralize random seeds and split settings.
 4. Save the final trained model as an artifact.
-5. Compare different models to see which one performs best.
+5. Compare model families and select the final model.
 
 ### Igor
-1. Manage the Python environment. Create and test the requirements.txt or environment.yml file to ensure everyone can install the exact same library versions.
-2. Write an evaluation script that calculates final metrics on the test set.
-3. Implement model explainability to automatically generate charts showing why the model made its predictions.
-4. Write the master README.md with step-by-step instructions on how to clone the repo, install dependencies, and run the pipeline from start to finish.
-5. Prepare the report, comparing the previous results from Kaggle users to our final results.
 
-
+1. Manage the Poetry environment and lock file.
+2. Write final held-out evaluation for the saved model.
+3. Generate model explainability charts.
+4. Maintain the master README with end-to-end instructions.
+5. Prepare the final report comparing project results with previous work.
